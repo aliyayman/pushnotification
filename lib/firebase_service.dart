@@ -14,8 +14,13 @@ class FirebaseService {
   }
 
   FirebaseService._init();
-
   final _messaging = FirebaseMessaging.instance;
+
+  Future<void> initNotifications() async {
+    await FirebaseMessaging.instance.requestPermission();
+    await getFcmToken();
+    await initPushNotifications();
+  }
 
   Future<String?> getFcmToken() async {
    if (Platform.isIOS) {
@@ -31,18 +36,6 @@ class FirebaseService {
     }
   }
 
-  Future<void> initNotifications() async {
-    await FirebaseMessaging.instance.requestPermission();
-    await getFcmToken();
-    await initPushNotifications();
-  }
-
-  void handleMessage(RemoteMessage? message) {
-    if (message != null) {
-      navigatorKey.currentState?.pushNamed(SecondPage.route, arguments: message);
-    }
-  }
-
   Future<void> initPushNotifications() async {
     await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
       alert: true,
@@ -54,6 +47,11 @@ class FirebaseService {
     FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
   }
 }
+  void handleMessage(RemoteMessage? message) {
+    if (message != null) {
+      navigatorKey.currentState?.pushNamed(SecondPage.route, arguments: message);
+    }
+  }
 
 Future<void> handleBackgroundMessage(RemoteMessage message) async {
   if (message.notification != null) {
