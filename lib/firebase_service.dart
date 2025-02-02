@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_print
 
+import 'dart:io';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:pushnotification/main.dart';
 import 'package:pushnotification/second_page.dart';
@@ -16,12 +18,17 @@ class FirebaseService {
   final _messaging = FirebaseMessaging.instance;
 
   Future<String?> getFcmToken() async {
-    String? token = await _messaging.getToken();
-    if (token != null) {
-      print('Token: $token');
-      return token;
+   if (Platform.isIOS) {
+      // iOS cihazlarda APNS tokenini al
+      String? apnsToken = await _messaging.getAPNSToken();
+      print("iOS APNS Token: $apnsToken");
+      return apnsToken;
+    } else {
+      // Android cihazlarda FCM tokenini al
+      String? fcmToken = await _messaging.getToken();
+      print("Android FCM Token: $fcmToken");
+      return fcmToken;
     }
-    return null;
   }
 
   Future<void> initNotifications() async {
