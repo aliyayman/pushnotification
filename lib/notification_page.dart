@@ -1,9 +1,9 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
-class SecondPage extends StatelessWidget {
-  const SecondPage({super.key});
-  static const route = '/secondPage';
+class NotificationPage extends StatelessWidget {
+  const NotificationPage({super.key});
+  static const route = '/notificationPage';
 
   @override
   Widget build(BuildContext context) {

@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:pushnotification/main.dart';
-import 'package:pushnotification/second_page.dart';
+import 'package:pushnotification/notification_page.dart';
 
 class FirebaseService {
   static FirebaseService? _instance;
@@ -49,7 +49,7 @@ class FirebaseService {
 }
   void handleMessage(RemoteMessage? message) {
     if (message != null) {
-      navigatorKey.currentState?.pushNamed(SecondPage.route, arguments: message);
+      navigatorKey.currentState?.pushNamed(NotificationPage.route, arguments: message);
     }
   }
 
@@ -58,6 +58,6 @@ Future<void> handleBackgroundMessage(RemoteMessage message) async {
     print('Title: ${message.notification!.title}');
     print('Body: ${message.notification!.body}');
     print('ImageUrl: ${message.notification!.android?.imageUrl}');
-    navigatorKey.currentState?.pushNamed(SecondPage.route, arguments: message);
+    navigatorKey.currentState?.pushNamed(NotificationPage.route, arguments: message);
   }
 }

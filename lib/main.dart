@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:pushnotification/firebase_options.dart';
 import 'package:pushnotification/firebase_service.dart';
 import 'package:pushnotification/home_page.dart';
-import 'package:pushnotification/second_page.dart';
+import 'package:pushnotification/notification_page.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       ),
       navigatorKey: navigatorKey,
       routes: {
-        SecondPage.route: (context) => const SecondPage(),
+        NotificationPage.route: (context) => const NotificationPage(),
       },
       home: const HomePage(),
     );
